@@ -3,6 +3,7 @@ package com.example.paulivanov.construx;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -43,7 +44,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-
+    public static User CURRENT_USER;
     private UserLoginTask mAuthTask = null;
 
     // UI references.
@@ -75,6 +76,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 attemptLogin();
             }
         });
@@ -131,23 +133,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
 
-            //TODO: FIGURE OUT WHY THIS ISNT WORKING
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
             System.out.println("Worked");
-//            User loginer = new User(email, password);
-//
-//            Boolean success = this.execute(loginer);
-//            showProgress(false);
-//
-//            if (success) {
-//                //We good homie Go to next activity
-//            }
-//            else {
-//                mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                mPasswordView.requestFocus();
-//            }
-
         }
     }
 
@@ -252,31 +241,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    private Boolean execute(User mUser)
-    {
-        // Attempt to Find the User in localdb
-        System.out.println("Before DB call");
-        List<User> possibleUsers = User.find(User.class, "email = ?", mUser.getEmail());
-        System.out.println("After DB call");
-
-        for(User u : possibleUsers)
-        {
-            System.out.println("Iterate over list");
-            if(Objects.equals(u.getEmail(), mUser.getEmail()) &&
-                    Objects.equals(u.getPassword(), mUser.getPassword()))
-            {
-                System.out.println("Found User matching email and creds");
-                return true;
-            }
-        }
-
-        //Register the account if it doesnt exist
-        System.out.println("Creating User");
-        mUser.save();
-        System.out.println("Created User");
-        return true;
-    }
-
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -306,6 +270,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if(Objects.equals(u.getEmail(), mUser.getEmail()) &&
                         Objects.equals(u.getPassword(), mUser.getPassword()))
                 {
+                    CURRENT_USER = mUser;
                     System.out.println("Found User matching email and creds");
                     return true;
                 }
@@ -314,6 +279,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             //Register the account if it doesnt exist
             System.out.println("Creating User");
             mUser.save();
+            CURRENT_USER = mUser;
             System.out.println("Created User");
             return true;
         }
@@ -329,6 +295,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
+        }
+
+        public void finish()
+        {
+            Intent intent = new Intent(LoginActivity.this, JobListActivity.class);
+            startActivity(intent);
         }
 
         @Override

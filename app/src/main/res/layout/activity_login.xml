@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.paulivanov.construx.LoginActivity">
+    tools:context="com.example.paulivanov.construx.LoginActivity"
+    >
 
     <!-- Login progress -->
     <ScrollView
@@ -20,7 +21,9 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/colorAccent"
+            android:backgroundTintMode="add">
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -33,7 +36,8 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="pi@tt.com" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -51,7 +55,8 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="poiuy" />
 
             </android.support.design.widget.TextInputLayout>
 
