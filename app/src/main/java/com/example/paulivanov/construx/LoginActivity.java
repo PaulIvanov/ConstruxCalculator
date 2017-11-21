@@ -270,7 +270,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if(Objects.equals(u.getEmail(), mUser.getEmail()) &&
                         Objects.equals(u.getPassword(), mUser.getPassword()))
                 {
-                    CURRENT_USER = mUser;
+                    CURRENT_USER = u;
                     System.out.println("Found User matching email and creds");
                     return true;
                 }

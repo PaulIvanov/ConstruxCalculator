@@ -50,9 +50,13 @@
                 android:value="com.example.paulivanov.construx.LoginActivity"
                 tools:replace="android:value" />
         </activity>
-        <activity android:name=".CreateJobActivity"
-            android:label="Create Job"/>
-
+        <activity
+            android:name=".CreateJobActivity"
+            android:label="Create Job" />
+        <activity
+            android:name=".CardViewActivity"
+            android:label="@string/title_activity_card_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

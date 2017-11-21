@@ -21,6 +21,9 @@ import java.util.List;
 
 public class JobListActivity extends AppCompatActivity {
 
+    private List<Job> jobs;
+    private RecyclerView rv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,30 @@ public class JobListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        rv=(RecyclerView)findViewById(R.id.rv);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+        rv.setHasFixedSize(true);
+
+        initializeData();
+        initializeAdapter();
     }
 
+    private void initializeData(){
+        try
+        {
+            String userId = LoginActivity.CURRENT_USER.getId().toString();
+            jobs = Job.find(Job.class, "1=1");
+        }
+        catch(Exception ex)
+        {
+            System.out.print(ex.getMessage());
+        }
+    }
+
+    private void initializeAdapter(){
+        RVAdapter adapter = new RVAdapter(jobs);
+        rv.setAdapter(adapter);
+    }
 }

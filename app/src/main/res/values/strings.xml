@@ -19,4 +19,6 @@
     <string name="job_address">Job Address</string>
     <string name="date">Date</string>
     <string name="create">Create</string>
+    <string name="title_activity_card_view">CardViewActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
