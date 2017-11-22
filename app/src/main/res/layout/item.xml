@@ -14,12 +14,13 @@
         >
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="85dp"
+            android:layout_height="87dp"
             android:id="@+id/job_photo"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
             />
 
         <TextView
@@ -28,7 +29,7 @@
             android:id="@+id/job_name"
             android:layout_toEndOf="@+id/job_photo"
             android:layout_alignParentTop="true"
-            android:textSize="30sp"
+            android:textSize="24sp"
             />
 
         <TextView
@@ -37,6 +38,7 @@
             android:id="@+id/job_id"
             android:layout_toEndOf="@+id/job_photo"
             android:layout_below="@+id/job_name"
+            android:textSize="24sp"
             />
 
     </RelativeLayout>

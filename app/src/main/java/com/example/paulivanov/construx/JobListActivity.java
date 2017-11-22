@@ -36,6 +36,7 @@ public class JobListActivity extends AppCompatActivity {
                 Snackbar.make(view, "Going to Create Job Activity", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 Intent intent = new Intent(JobListActivity.this, CreateJobActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
@@ -49,13 +50,26 @@ public class JobListActivity extends AppCompatActivity {
         initializeAdapter();
     }
 
+
     private void initializeData(){
         try
         {
-            String userId = LoginActivity.CURRENT_USER.getId().toString();
-            jobs = Job.find(Job.class, "1=1");
-
-            //TODO: Filter jobs list here to remove non user stuff
+            long userId = LoginActivity.CURRENT_USER.getId();
+            List<Job> newJobs = Job.find(Job.class, "1=1");
+            jobs = new ArrayList<>();
+            for(Job j : newJobs)
+            {
+                if(j.getUser() == null)
+                {
+                    //Shouldnt really ever happen \_0_/
+                    j.setUser(LoginActivity.CURRENT_USER);
+                    j.save();
+                    j.delete();
+                }
+                if(j.getUser().getId() == userId) {
+                    jobs.add(j);
+                }
+            }
         }
         catch(Exception ex)
         {

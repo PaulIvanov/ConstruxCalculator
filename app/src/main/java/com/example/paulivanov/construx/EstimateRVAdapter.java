@@ -56,7 +56,7 @@ public class EstimateRVAdapter extends RecyclerView.Adapter<EstimateRVAdapter.Es
     @Override
     public void onBindViewHolder(EstimateViewHolder EstimateViewHolder, int i) {
         EstimateViewHolder.estimateName.setText(Estimates.get(i).getEstimatesName());
-        EstimateViewHolder.estimatePrice.setText(Long.toString((Estimates.get(i).getTotalPrice())));
+        EstimateViewHolder.estimatePrice.setText(Long.toString((Estimates.get(i).getTotalPrice())) + "$");
         EstimateViewHolder.estimateId = Estimates.get(i).getId();
     }
 

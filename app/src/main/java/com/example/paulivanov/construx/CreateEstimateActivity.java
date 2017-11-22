@@ -1,5 +1,6 @@
 package com.example.paulivanov.construx;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,9 +39,15 @@ public class CreateEstimateActivity extends AppCompatActivity {
                 newEstimate.setCreationDate(new Date());
                 try{
                     newEstimate.save();
+                    job.setCurrentStatus(JobStatus.ESTIMATED);
+                    job.save();
                     Snackbar.make(view, "Estimate Created: ID# " + newEstimate.getId().toString(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    //TODO: Return to EstimateList
+                    Intent intent = new Intent(view.getContext(), EditJobActivity.class);
+                    intent.putExtra("job_id", job.getId());
+                    finish();
+                    view.getContext().startActivity(intent);
+
                 }
                 catch(Exception ex)
                 {

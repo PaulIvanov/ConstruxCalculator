@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditJobActivity extends AppCompatActivity {
@@ -21,7 +23,7 @@ public class EditJobActivity extends AppCompatActivity {
     TextView jobName;
     TextView jobAddress;
     TextView startDate;
-    TextView jobstatus;
+    TextView jobStatus;
 
 
     @Override
@@ -30,6 +32,12 @@ public class EditJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_job);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        jobName = (TextView) findViewById(R.id.editJobName);
+        jobAddress = (TextView) findViewById(R.id.editJobAddress);
+        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+        startDate = (TextView) findViewById(R.id.editJobStartDate);
+        jobStatus = (TextView) findViewById(R.id.editJobStatus);
         jobId = getIntent().getLongExtra("job_id", 0);
         if(jobId == 0)
         {
@@ -39,6 +47,11 @@ public class EditJobActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        Job job = Job.findById(Job.class, jobId);
+        jobName.setText(job.getJobName());
+        jobAddress.setText(job.getAddress());
+        startDate.setText(dateFormat.format(job.getStartDate()));
+        jobStatus.setText(job.getCurrentStatus().toString().replace('_', ' '));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.edit_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +61,7 @@ public class EditJobActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
                 Intent intent = new Intent(EditJobActivity.this, CreateEstimateActivity.class);
                 intent.putExtra("job_id", jobId);
+                finish();
                 startActivity(intent);
             }
         });
@@ -57,6 +71,7 @@ public class EditJobActivity extends AppCompatActivity {
         editJobRv.setLayoutManager(llm);
         editJobRv.setHasFixedSize(true);
 
+
         initializeData();
         initializeAdapter();
     }
@@ -64,10 +79,15 @@ public class EditJobActivity extends AppCompatActivity {
     private void initializeData(){
         try
         {
-            String userId = LoginActivity.CURRENT_USER.getId().toString();
-            estimates = Estimate.find(Estimate.class, "1=1");
+            List<Estimate> newEstimates = Estimate.find(Estimate.class, "1=1");
+            estimates = new ArrayList<>();
+            for(Estimate est : newEstimates)
+            {
+                if(est.getJob().getId() == jobId) {
+                    estimates.add(est);
+                }
 
-            //TODO: Filter Estimates list here to remove non user stuff
+            }
         }
         catch(Exception ex)
         {

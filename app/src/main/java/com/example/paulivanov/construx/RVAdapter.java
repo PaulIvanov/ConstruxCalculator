@@ -28,7 +28,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Going to Create Job Activity", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Going to Edit Job Activity", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     Intent intent = new Intent(view.getContext(), EditJobActivity.class);
                     intent.putExtra("job_id", job_id);
@@ -63,7 +63,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
     public void onBindViewHolder(JobViewHolder JobViewHolder, int i) {
         JobViewHolder.jobName.setText(Jobs.get(i).getJobName());
         JobViewHolder.jobId.setText(Jobs.get(i).getId().toString());
-        JobViewHolder.jobPhoto.setImageResource(R.drawable.emma);
+        JobViewHolder.jobPhoto.setImageResource(R.drawable.house);
         JobViewHolder.job_id = Jobs.get(i).getId();
     }
 

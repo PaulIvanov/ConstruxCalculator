@@ -1,5 +1,6 @@
 package com.example.paulivanov.construx;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +15,16 @@ import java.util.Date;
 public class CreateJobActivity extends AppCompatActivity {
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(CreateJobActivity.this, JobListActivity.class);
+        startActivity(intent);
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_job);
-
         Button createButton = (Button) findViewById(R.id.createJobButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,7 +43,9 @@ public class CreateJobActivity extends AppCompatActivity {
                 newJob.save();
                     Snackbar.make(view, "Job Created: ID# " + newJob.getId().toString(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    //TODO: Return to JobList
+                    Intent intent = new Intent(view.getContext(), JobListActivity.class);
+                    finish();
+                    view.getContext().startActivity(intent);
                 }
                 catch(Exception ex)
                 {
@@ -45,6 +54,5 @@ public class CreateJobActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 }
