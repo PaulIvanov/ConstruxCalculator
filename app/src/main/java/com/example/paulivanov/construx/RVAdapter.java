@@ -1,5 +1,7 @@
 package com.example.paulivanov.construx;
 
+import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,11 +19,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
         CardView cv;
         TextView jobName;
         TextView jobId;
+        private long job_id;
         ImageView jobPhoto;
 
-        JobViewHolder(View itemView) {
+        JobViewHolder(final View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
+            cv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Going to Create Job Activity", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    Intent intent = new Intent(view.getContext(), EditJobActivity.class);
+                    intent.putExtra("job_id", job_id);
+                    itemView.getContext().startActivity(intent);
+                }
+            });
             jobName = (TextView)itemView.findViewById(R.id.job_name);
             jobId = (TextView)itemView.findViewById(R.id.job_id);
             jobPhoto = (ImageView)itemView.findViewById(R.id.job_photo);
@@ -51,6 +64,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
         JobViewHolder.jobName.setText(Jobs.get(i).getJobName());
         JobViewHolder.jobId.setText(Jobs.get(i).getId().toString());
         JobViewHolder.jobPhoto.setImageResource(R.drawable.emma);
+        JobViewHolder.job_id = Jobs.get(i).getId();
     }
 
     @Override

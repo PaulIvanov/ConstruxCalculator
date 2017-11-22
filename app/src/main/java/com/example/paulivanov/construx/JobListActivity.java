@@ -54,6 +54,8 @@ public class JobListActivity extends AppCompatActivity {
         {
             String userId = LoginActivity.CURRENT_USER.getId().toString();
             jobs = Job.find(Job.class, "1=1");
+
+            //TODO: Filter jobs list here to remove non user stuff
         }
         catch(Exception ex)
         {

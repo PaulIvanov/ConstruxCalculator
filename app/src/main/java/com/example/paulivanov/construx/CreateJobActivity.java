@@ -36,6 +36,7 @@ public class CreateJobActivity extends AppCompatActivity {
                 newJob.save();
                     Snackbar.make(view, "Job Created: ID# " + newJob.getId().toString(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    //TODO: Return to JobList
                 }
                 catch(Exception ex)
                 {

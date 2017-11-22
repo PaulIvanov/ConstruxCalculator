@@ -27,6 +27,7 @@ public class CardViewActivity extends AppCompatActivity {
         jobName.setText("Emma Wilson");
         jobId.setText("23 years old");
         jobPhoto.setImageResource(R.drawable.emma);
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.paulivanov.construx;
 import com.orm.SugarRecord;
 import com.orm.dsl.NotNull;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,11 +18,15 @@ public class Estimate extends SugarRecord {
     private String estimatesName;
 
     @NotNull
-    private int totalPrice; // in USD cents fits up 21 million dollars
+    private long totalPrice; // in USD cents fits up 21 million dollars
+
+    private Date creationDate;
 
     public List<MaterialEstimate> materialEstimates;
 
-    public Estimate() {}
+    public Estimate() {
+        creationDate = new Date();
+    }
 
     public Job getJob() {
         return job;
@@ -39,11 +44,15 @@ public class Estimate extends SugarRecord {
         this.estimatesName = estimatesName;
     }
 
-    public int getTotalPrice() {
+    public long getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(long totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public Date getCreationDate() { return creationDate; }
+
+    public void setCreationDate(Date newDate) { this.creationDate = newDate; }
 }

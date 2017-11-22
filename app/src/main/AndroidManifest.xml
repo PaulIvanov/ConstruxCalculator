@@ -22,8 +22,8 @@
             android:value="construct.db" />
         <meta-data
             android:name="VERSION"
-            android:value="1"
-            tools:replace="android:value" />
+            android:value="2"
+            />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -56,7 +56,15 @@
         <activity
             android:name=".CardViewActivity"
             android:label="@string/title_activity_card_view"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditJobActivity"
+            android:label="@string/title_activity_edit_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".EstimateCardViewActivity"/>
+        <activity android:name=".CreateEstimateActivity"
+            android:label="@string/estimate"
+            />
     </application>
 
 </manifest>
