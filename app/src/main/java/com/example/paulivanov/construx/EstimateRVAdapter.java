@@ -18,6 +18,7 @@ public class EstimateRVAdapter extends RecyclerView.Adapter<EstimateRVAdapter.Es
 
         CardView estimateCv;
         long estimateId;
+        long jobId;
         TextView estimateName;
         TextView estimatePrice;
 
@@ -27,8 +28,11 @@ public class EstimateRVAdapter extends RecyclerView.Adapter<EstimateRVAdapter.Es
             estimateCv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Going to View Edit Activity", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Going to Edit Estimate Activity", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    Intent intent = new Intent(view.getContext(), EditEstimateActivity.class);
+                    intent.putExtra("job_id", jobId);
+                    itemView.getContext().startActivity(intent);
                 }
             });
             estimateName = (TextView)itemView.findViewById(R.id.estimate_name);
@@ -55,9 +59,11 @@ public class EstimateRVAdapter extends RecyclerView.Adapter<EstimateRVAdapter.Es
 
     @Override
     public void onBindViewHolder(EstimateViewHolder EstimateViewHolder, int i) {
-        EstimateViewHolder.estimateName.setText(Estimates.get(i).getEstimatesName());
-        EstimateViewHolder.estimatePrice.setText(Long.toString((Estimates.get(i).getTotalPrice())) + "$");
-        EstimateViewHolder.estimateId = Estimates.get(i).getId();
+        Estimate est = Estimates.get(i);
+        EstimateViewHolder.estimateName.setText(est.getEstimatesName());
+        EstimateViewHolder.estimatePrice.setText(Long.toString((est.getTotalPrice())) + "$");
+        EstimateViewHolder.estimateId = est.getId();
+        EstimateViewHolder.jobId = est.getJob().getId();
     }
 
     @Override
