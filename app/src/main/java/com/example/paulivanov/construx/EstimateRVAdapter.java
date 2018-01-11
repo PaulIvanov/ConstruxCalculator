@@ -32,6 +32,7 @@ public class EstimateRVAdapter extends RecyclerView.Adapter<EstimateRVAdapter.Es
                             .setAction("Action", null).show();
                     Intent intent = new Intent(view.getContext(), EditEstimateActivity.class);
                     intent.putExtra("job_id", jobId);
+                    intent.putExtra("estimate_id", estimateId);
                     itemView.getContext().startActivity(intent);
                 }
             });

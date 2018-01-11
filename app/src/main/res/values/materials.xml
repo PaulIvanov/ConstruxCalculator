@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="materials_list">
+        <item>Cedar 5\"</item>
+        <item>Hardi-plank 4\"</item>
+        <item>Hardi-plank 5\"</item>
+        <item>Hardi-plank 6\"</item>
+        <item>Hardi-plank 7\"</item>
+        <item>Hardi-panel 8\'</item>
+        <item>Hardi-panel 10\'</item>
+        <item>Hardi-shingle</item>
+    </string-array>
+</resources>

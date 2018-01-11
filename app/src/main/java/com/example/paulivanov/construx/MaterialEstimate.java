@@ -4,6 +4,7 @@ import com.orm.SugarRecord;
 import com.orm.dsl.NotNull;
 import com.orm.dsl.Unique;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,5 +53,22 @@ public class MaterialEstimate extends SugarRecord {
 
     public void setMeasurements(List<Measurement> measurements) {
         this.measurements = measurements;
+    }
+
+    public Measurement addMeasurement(int height, int width)
+    {
+
+        Measurement newMeas = new Measurement();
+        newMeas.setLength(height);
+        newMeas.setWidth(width);
+        newMeas.setMaterialEstimate(this);
+        newMeas.save();
+        if(this.measurements == null)
+        {
+            this.measurements = new ArrayList<>();
+        }
+        this.measurements.add(newMeas);
+        this.save();
+        return newMeas;
     }
 }

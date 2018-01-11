@@ -6,4 +6,140 @@
     android:layout_height="match_parent"
     tools:context="com.example.paulivanov.construx.EditEstimateActivity">
 
+    <TextView
+        android:id="@+id/estimate_total"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/total"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/estimate_price"
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/estimate_total"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/_0_00" />
+
+    <TextView
+        android:id="@+id/estimate_materials"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/materials"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/materialEstimateList"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/materialEstimateList"
+        android:layout_width="368dp"
+        android:layout_height="345dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/materialEstRv"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/meas_width"
+        android:layout_width="75dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/estimate_materials"
+        app:layout_constraintEnd_toStartOf="@+id/multiplier"
+        app:layout_constraintHorizontal_bias="0.258"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/estimate_total" />
+
+    <TextView
+        android:id="@+id/multiplier"
+        android:layout_width="14dp"
+        android:layout_height="23dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/x"
+        app:layout_constraintBottom_toTopOf="@+id/estimate_materials"
+        app:layout_constraintEnd_toEndOf="@+id/estimate_materials"
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="@+id/estimate_materials"
+        app:layout_constraintTop_toBottomOf="@+id/estimate_total" />
+
+    <EditText
+        android:id="@+id/meas_height"
+        android:layout_width="78dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:elevation="0dp"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        android:selectAllOnFocus="false"
+        android:singleLine="true"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
+        app:layout_constraintBottom_toTopOf="@+id/estimate_materials"
+        app:layout_constraintStart_toEndOf="@+id/multiplier"
+        app:layout_constraintTop_toBottomOf="@+id/estimate_total" />
+
+    <Spinner
+        android:id="@+id/material_spinner"
+        android:layout_width="148dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/addMeasButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/meas_height"
+        app:layout_constraintTop_toBottomOf="@+id/estimate_price" />
+
+    <Button
+        android:id="@+id/addMeasButton"
+        android:layout_width="137dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Add Measurement"
+        app:layout_constraintBottom_toTopOf="@+id/materialEstimateList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/estimate_materials" />
+
 </android.support.constraint.ConstraintLayout>

@@ -54,22 +54,12 @@ public class JobListActivity extends AppCompatActivity {
     private void initializeData(){
         try
         {
-            long userId = LoginActivity.CURRENT_USER.getId();
-            List<Job> newJobs = Job.find(Job.class, "1=1");
-            jobs = new ArrayList<>();
-            for(Job j : newJobs)
+            setAllJobsToCurrentUser();
+            if(Material.count(Material.class) == 0)
             {
-                if(j.getUser() == null)
-                {
-                    //Shouldnt really ever happen \_0_/
-                    j.setUser(LoginActivity.CURRENT_USER);
-                    j.save();
-                    j.delete();
-                }
-                if(j.getUser().getId() == userId) {
-                    jobs.add(j);
-                }
+                initializeMaterials();
             }
+
         }
         catch(Exception ex)
         {
@@ -80,5 +70,45 @@ public class JobListActivity extends AppCompatActivity {
     private void initializeAdapter(){
         RVAdapter adapter = new RVAdapter(jobs);
         rv.setAdapter(adapter);
+    }
+
+    private void setAllJobsToCurrentUser(){
+        long userId = LoginActivity.CURRENT_USER.getId();
+        List<Job> newJobs = Job.find(Job.class, "1=1");
+        jobs = new ArrayList<>();
+        for(Job j : newJobs)
+        {
+            if(j.getUser() == null)
+            {
+                //Shouldnt really ever happen \_0_/
+                j.setUser(LoginActivity.CURRENT_USER);
+                j.save();
+                j.delete();
+            }
+            if(j.getUser().getId() == userId) {
+                jobs.add(j);
+            }
+        }
+    }
+
+    private void initializeMaterials()
+    {
+        List<String> materials = new ArrayList<>();
+        materials.add("Cedar 5\"");
+        materials.add("Hardi-plank 4\"");
+        materials.add("Hardi-plank 5\"");
+        materials.add("Hardi-plank 6\"");
+        materials.add("Hardi-plank 7\"");
+        materials.add("Hardi-panel 8'");
+        materials.add("Hardi-panel 10'");
+        materials.add("Hardi-shingle");
+
+        for(String m : materials)
+        {
+            Material myMat = new Material();
+            myMat.setMaterialName(m);
+            myMat.setUnitOfMeasure("sq. ft");
+            myMat.save();
+        }
     }
 }

@@ -35,4 +35,12 @@ public class Measurement extends SugarRecord{
     public void setWidth(int width) {
         this.width = width;
     }
+
+    public MaterialEstimate getMaterialEstimate() {
+        return materialEstimate;
+    }
+
+    public void setMaterialEstimate(MaterialEstimate materialEstimate) {
+        this.materialEstimate = materialEstimate;
+    }
 }
