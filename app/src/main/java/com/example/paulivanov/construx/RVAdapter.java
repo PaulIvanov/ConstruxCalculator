@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
@@ -18,7 +20,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
 
         CardView cv;
         TextView jobName;
-        TextView jobId;
+        TextView jobAddress;
+        TextView jobStatus;
+        TextView jobDateCreated;
         private long job_id;
         ImageView jobPhoto;
 
@@ -36,8 +40,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
                 }
             });
             jobName = (TextView)itemView.findViewById(R.id.job_name);
-            jobId = (TextView)itemView.findViewById(R.id.job_id);
+            jobAddress = (TextView)itemView.findViewById(R.id.job_address);
+            jobStatus = (TextView)itemView.findViewById(R.id.job_status_view);
             jobPhoto = (ImageView)itemView.findViewById(R.id.job_photo);
+            jobDateCreated = (TextView)itemView.findViewById(R.id.job_date_created);
         }
     }
 
@@ -62,9 +68,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
     @Override
     public void onBindViewHolder(JobViewHolder JobViewHolder, int i) {
         JobViewHolder.jobName.setText(Jobs.get(i).getJobName());
-        JobViewHolder.jobId.setText(Jobs.get(i).getId().toString());
+        JobViewHolder.jobAddress.setText(Jobs.get(i).getAddress().toString());
+        JobStatus js = Jobs.get(i).getCurrentStatus();
+        if(js != null){
+        JobViewHolder.jobStatus.setText(js.toString().replace('_', ' '));
+        }
         JobViewHolder.jobPhoto.setImageResource(R.drawable.house);
+        JobViewHolder.jobDateCreated.setText("Created: " + String.format(Jobs.get(i).getStartDate().toString(), "dd-MM-yyyy"));
         JobViewHolder.job_id = Jobs.get(i).getId();
+
     }
 
     @Override

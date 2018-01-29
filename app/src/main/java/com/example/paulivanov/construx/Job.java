@@ -79,4 +79,23 @@ public class Job extends SugarRecord {
     public void setEstimates(List<Estimate> estimates) {
         this.estimates = estimates;
     }
+
+    public static String convertJobStatusToString(int jobStatus)
+    {
+        switch(jobStatus)
+        {
+            case 0:
+                return "No Estimate";
+            case 1:
+                return "Estimated";
+            case 2:
+                return "Bid Sent";
+            case 3:
+                return "Bid Declined";
+            case 4:
+                return "Bid Accepted";
+            default:
+                return "No Status";
+        }
+    }
 }
