@@ -28,7 +28,7 @@ public class MaterialEstimateRvAdapter extends RecyclerView.Adapter<MaterialEsti
         MaterialEstimate est = MaterialEstimate.get(position);
         holder.MaterialName.setText(est.getMaterial().getMaterialName());
         holder.MaterialPrice.setText(Integer.toString((est.getMaterialPrice())) + "$");
-        holder.MaterialTotalPrice.setText(Integer.toString(555));
+        holder.MaterialTotalPrice.setText(Integer.toString(est.getMaterialPrice()));
         holder.MaterialTotalMeas.setText(Integer.toString(20));
     }
 
