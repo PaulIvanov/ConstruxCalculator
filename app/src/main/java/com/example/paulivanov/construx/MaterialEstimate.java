@@ -71,4 +71,15 @@ public class MaterialEstimate extends SugarRecord {
         this.save();
         return newMeas;
     }
+
+    public int CalculateTotalPrice()
+    {
+        List<Measurement> measurements = Measurement.find(Measurement.class, "1=1");
+        int totalPrice = 0;
+        for(Measurement meas : measurements)
+        {
+            totalPrice += (meas.getLength() * meas.getWidth()) * this.materialPrice;
+        }
+        return totalPrice;
+    }
 }

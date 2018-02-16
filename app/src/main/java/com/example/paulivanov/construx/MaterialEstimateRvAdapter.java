@@ -26,10 +26,22 @@ public class MaterialEstimateRvAdapter extends RecyclerView.Adapter<MaterialEsti
     @Override
     public void onBindViewHolder(MaterialEstimateViewHolder holder, int position) {
         MaterialEstimate est = MaterialEstimate.get(position);
+        int materialTotalPrice = 0;
+        int materialTotalMeas = 0;
+
+        List<Measurement> measurements = Measurement.find(Measurement.class, "1=1");
+        for(Measurement meas : measurements){
+            if(meas.getMaterialEstimate().getId().equals(est.getId())){
+                int totalMeas = meas.getLength() * meas.getLength();
+                materialTotalPrice +=  totalMeas * est.getMaterialPrice();
+                materialTotalMeas += totalMeas;
+            }
+        }
+
         holder.MaterialName.setText(est.getMaterial().getMaterialName());
         holder.MaterialPrice.setText(Integer.toString((est.getMaterialPrice())) + "$");
-        holder.MaterialTotalPrice.setText(Integer.toString(555));
-        holder.MaterialTotalMeas.setText(Integer.toString(20));
+        holder.MaterialTotalPrice.setText(Integer.toString(materialTotalPrice));
+        holder.MaterialTotalMeas.setText(Integer.toString(materialTotalMeas));
     }
 
     @Override
