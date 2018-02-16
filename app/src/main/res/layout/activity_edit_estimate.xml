@@ -29,9 +29,9 @@
         android:textAlignment="textEnd"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/estimate_total"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/_0_00" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/estimate_materials"
@@ -88,7 +88,7 @@
 
     <TextView
         android:id="@+id/multiplier"
-        android:layout_width="14dp"
+        android:layout_width="11dp"
         android:layout_height="23dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -118,7 +118,8 @@
         android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         app:layout_constraintBottom_toTopOf="@+id/estimate_materials"
         app:layout_constraintStart_toEndOf="@+id/multiplier"
-        app:layout_constraintTop_toBottomOf="@+id/estimate_total" />
+        app:layout_constraintTop_toBottomOf="@+id/estimate_total"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Spinner
         android:id="@+id/material_spinner"
@@ -130,8 +131,10 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/addMeasButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.916"
         app:layout_constraintStart_toEndOf="@+id/meas_height"
-        app:layout_constraintTop_toBottomOf="@+id/estimate_price" />
+        app:layout_constraintTop_toBottomOf="@+id/estimate_price"
+        app:layout_constraintVertical_bias="0.52" />
 
     <Button
         android:id="@+id/addMeasButton"
