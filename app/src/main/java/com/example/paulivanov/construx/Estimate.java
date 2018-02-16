@@ -55,4 +55,17 @@ public class Estimate extends SugarRecord {
     public Date getCreationDate() { return creationDate; }
 
     public void setCreationDate(Date newDate) { this.creationDate = newDate; }
+
+    public long calculateEstimateTotal()
+    {
+        List<MaterialEstimate> materialEstimates = MaterialEstimate.find(MaterialEstimate.class,
+                "1=1");
+
+        for(MaterialEstimate matEst : materialEstimates)
+        {
+            this.totalPrice += matEst.CalculateTotalPrice();
+        }
+        this.save();
+        return this.totalPrice;
+    }
 }

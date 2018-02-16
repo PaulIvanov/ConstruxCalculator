@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,7 @@ import java.util.List;
 public class EditEstimateActivity extends AppCompatActivity {
     List<MaterialEstimate> materialEstimates;
     private RecyclerView materialEstimateRv;
+    TextView totalPrice;
     Estimate estimate;
     Job job;
     long jobId;
@@ -37,7 +39,6 @@ public class EditEstimateActivity extends AppCompatActivity {
         estId = this.getIntent().getLongExtra("estimate_id", 0);
         estimate = Estimate.findById(Estimate.class, estId);
         estimate.materialEstimates = MaterialEstimate.find(MaterialEstimate.class, "estimate = ?", estimate.toString());
-
         setContentView(R.layout.activity_edit_estimate);
 
         //set up dropdown material list
@@ -56,14 +57,20 @@ public class EditEstimateActivity extends AppCompatActivity {
                 EditText measHeight = (EditText) findViewById(R.id.meas_height);
                 EditText measWidth = (EditText) findViewById(R.id.meas_width);
                 Spinner spinnerText = (Spinner) findViewById(R.id.material_spinner);
+                EditText materialPrice = (EditText) findViewById(R.id.estimate_materials);
+
                 try{
                     int length = Integer.parseInt(measHeight.getText().toString());
                     int width = Integer.parseInt(measWidth.getText().toString());
 
-                    MaterialEstimate materialEstimate = GetMaterialEstimate(spinnerText.getSelectedItem().toString());
+                    MaterialEstimate materialEstimate = GetMaterialEstimate(spinnerText.getSelectedItem().toString(), Integer.parseInt(materialPrice.getText().toString()));
                     Measurement newMeas = materialEstimate.addMeasurement(length, width);
                     Snackbar.make(view, "measurement added: ID# " + newMeas.getId().toString(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    Intent intent = getIntent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    finish();
+                    startActivity(intent);
                 }
                 catch(Exception ex)
                 {
@@ -77,7 +84,6 @@ public class EditEstimateActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         materialEstimateRv.setLayoutManager(llm);
         materialEstimateRv.setHasFixedSize(true);
-
         initializeData();
         initializeAdapter();
     }
@@ -93,6 +99,10 @@ public class EditEstimateActivity extends AppCompatActivity {
                     materialEstimates.add(est);
                 }
             }
+            long newVal = estimate.calculateEstimateTotal();
+            totalPrice = (TextView)findViewById(R.id.estimate_price);
+            totalPrice.setText(Long.toString(newVal));
+
         }
         catch(Exception ex)
         {
@@ -105,11 +115,16 @@ public class EditEstimateActivity extends AppCompatActivity {
         materialEstimateRv.setAdapter(adapter);
     }
 
-    protected MaterialEstimate GetMaterialEstimate(String material){
+    protected MaterialEstimate GetMaterialEstimate(String material, int materialPrice){
             try {
                 for(MaterialEstimate matest : this.estimate.materialEstimates)
                 {
                     if(matest.getMaterial().getMaterialName().equals(material)){
+                        if(matest.getMaterialPrice() != materialPrice)
+                        {
+                            matest.setMaterialPrice(materialPrice);
+                            matest.save();
+                        }
                         return matest;
                     }
                 }
@@ -121,7 +136,7 @@ public class EditEstimateActivity extends AppCompatActivity {
                 newMat.setEstimate(this.estimate);
                 List<Material> mats = Material.find(Material.class, "material_name = ?", material);
                 newMat.setMaterial(mats.get(0));
-                newMat.setMaterialPrice(1);
+                newMat.setMaterialPrice(materialPrice);
                 newMat.save();
                 if(this.estimate.materialEstimates == null)
                 {
