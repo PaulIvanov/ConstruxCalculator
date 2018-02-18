@@ -36,6 +36,17 @@ public class EstimateRVAdapter extends RecyclerView.Adapter<EstimateRVAdapter.Es
                     itemView.getContext().startActivity(intent);
                 }
             });
+            estimateCv.setOnLongClickListener(new View.OnLongClickListener()
+            {
+                @Override
+                public boolean onLongClick(View view){
+                    Estimate estToDelete = Estimate.findById(Estimate.class, estimateId);
+                    boolean result = estToDelete.delete();
+                    view.refreshDrawableState();
+                    return result;
+                }
+            });
+
             estimateName = (TextView)itemView.findViewById(R.id.estimate_name);
             estimatePrice = (TextView)itemView.findViewById(R.id.estimate_price);
         }

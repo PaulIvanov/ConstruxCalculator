@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.support.v7.widget.helper.ItemTouchHelper.SimpleCallback;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,6 +43,18 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
                     itemView.getContext().startActivity(intent);
                 }
             });
+
+            cv.setOnLongClickListener(new OnLongClickListener()
+            {
+                @Override
+                public boolean onLongClick(View view){
+                    Job jobToDelete = Job.findById(Job.class, job_id);
+                    boolean result = jobToDelete.delete();
+                    view.refreshDrawableState();
+                    return result;
+               }
+            });
+
             jobName = (TextView)itemView.findViewById(R.id.job_name);
             jobAddress = (TextView)itemView.findViewById(R.id.job_address);
             jobStatus = (TextView)itemView.findViewById(R.id.job_status_view);

@@ -10,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,6 @@ public class JobListActivity extends AppCompatActivity {
         initializeData();
         initializeAdapter();
     }
-
 
     private void initializeData(){
         try
@@ -102,6 +102,10 @@ public class JobListActivity extends AppCompatActivity {
         materials.add("Hardi-panel 8'");
         materials.add("Hardi-panel 10'");
         materials.add("Hardi-shingle");
+        materials.add("Man hours");
+        materials.add("Windows");
+        materials.add("Doors");
+
 
         for(String m : materials)
         {
