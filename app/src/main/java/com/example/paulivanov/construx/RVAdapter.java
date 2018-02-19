@@ -51,6 +51,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.JobViewHolder> {
                     Job jobToDelete = Job.findById(Job.class, job_id);
                     boolean result = jobToDelete.delete();
                     view.refreshDrawableState();
+                    Snackbar.make(view, "Job Deleted", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
                     return result;
                }
             });

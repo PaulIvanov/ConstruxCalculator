@@ -2,19 +2,33 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorPrimary"
     android:backgroundTintMode="add"
-    tools:context="com.example.paulivanov.construx.JobListActivity"
     android:theme="@style/AppTheme.NoActionBar"
-    android:id="@+id/coordinatorLayout">
+    tools:context="com.example.paulivanov.construx.JobListActivity">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/optionsButton"
+        android:layout_width="56dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_preferences" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
         android:background="@color/colorPrimary"
-        android:padding="8dp">
+        android:padding="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="0dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"

@@ -42,6 +42,18 @@ public class JobListActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton optionsMenu = (FloatingActionButton) findViewById(R.id.optionsButton);
+        optionsMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Going to options Activity", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent intent = new Intent(JobListActivity.this, SettingActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
         rv=(RecyclerView)findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);

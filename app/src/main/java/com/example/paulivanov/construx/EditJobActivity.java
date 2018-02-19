@@ -83,8 +83,15 @@ public class EditJobActivity extends AppCompatActivity {
             estimates = new ArrayList<>();
             for(Estimate est : newEstimates)
             {
+                try
+                {
                 if(est.getJob().getId() == jobId) {
                     estimates.add(est);
+                }
+                }
+                catch(Exception ex)
+                {
+                    est.delete();
                 }
 
             }

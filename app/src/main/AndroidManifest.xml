@@ -64,7 +64,10 @@
         <activity
             android:name=".CreateEstimateActivity"
             android:label="@string/estimate" />
-        <activity android:name=".EditEstimateActivity"></activity>
+        <activity android:name=".EditEstimateActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".AccountSettingsActivity" />
+        <activity android:name=".AddMaterialActivity"></activity>
     </application>
 
 </manifest>
