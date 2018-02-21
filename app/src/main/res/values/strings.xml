@@ -109,4 +109,6 @@
     <string name="change">change</string>
     <string name="new_material">New Material</string>
     <string name="material_name">Material Name</string>
+    <string name="measurement_type">measurement type</string>
+    <string name="meas_type">Meas type</string>
 </resources>

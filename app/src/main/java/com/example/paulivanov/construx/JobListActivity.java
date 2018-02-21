@@ -114,9 +114,6 @@ public class JobListActivity extends AppCompatActivity {
         materials.add("Hardi-panel 8'");
         materials.add("Hardi-panel 10'");
         materials.add("Hardi-shingle");
-        materials.add("Man hours");
-        materials.add("Windows");
-        materials.add("Doors");
 
 
         for(String m : materials)

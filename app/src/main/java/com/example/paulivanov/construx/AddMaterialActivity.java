@@ -27,11 +27,11 @@ public class AddMaterialActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 EditText newMaterialName = (EditText) findViewById(R.id.material_name_edit);
-
+                EditText materialType = (EditText) findViewById(R.id.measurement_edit);
                 try{
                         Material myMat = new Material();
                         myMat.setMaterialName(newMaterialName.getText().toString());
-                        myMat.setUnitOfMeasure("sq. ft");
+                        myMat.setUnitOfMeasure(materialType.getText().toString());
                         myMat.save();
                         Snackbar.make(view, "Added new Material", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();

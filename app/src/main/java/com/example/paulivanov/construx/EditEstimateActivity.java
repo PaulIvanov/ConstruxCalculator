@@ -43,7 +43,7 @@ public class EditEstimateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_estimate);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         List<Material> allMaterials = Material.find(Material.class,"1=1");
-        ArrayList<String> materialNames = new ArrayList<String>();
+        ArrayList<String> materialNames = new ArrayList<>();
         //set up dropdown material list
         for(Material mat : allMaterials)
         {
@@ -66,25 +66,34 @@ public class EditEstimateActivity extends AppCompatActivity {
                 EditText measWidth = (EditText) findViewById(R.id.meas_width);
                 Spinner spinnerText = (Spinner) findViewById(R.id.material_spinner);
                 EditText materialPrice = (EditText) findViewById(R.id.estimate_materials);
-
-                try{
-                    int length = Integer.parseInt(measHeight.getText().toString());
-                    int width = Integer.parseInt(measWidth.getText().toString());
-
-                    MaterialEstimate materialEstimate = GetMaterialEstimate(spinnerText.getSelectedItem().toString(), Integer.parseInt(materialPrice.getText().toString()));
-                    Measurement newMeas = materialEstimate.addMeasurement(length, width);
-                    Snackbar.make(view, "measurement added: ID# " + newMeas.getId().toString(), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    Intent intent = getIntent();
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    finish();
-                    startActivity(intent);
+                int length, width, matPrice;
+                try {
+                    length = Integer.parseInt(measHeight.getText().toString());
+                    width = Integer.parseInt(measWidth.getText().toString());
+                    matPrice = Integer.parseInt(materialPrice.getText().toString());
                 }
                 catch(Exception ex)
                 {
-                    Snackbar.make(view, "measurement Failed: " + ex.getMessage(), Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Invalid input: " + ex.getMessage(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    return;
+                }
+                try
+                {
+                    MaterialEstimate materialEstimate = GetMaterialEstimate(spinnerText.getSelectedItem().toString(), matPrice);
+                    Measurement newMeas = materialEstimate.addMeasurement(length, width);
+                    Snackbar.make(view, "measurement added: ID# " + newMeas.getId().toString(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
+                catch(Exception ex)
+                {
+                    Snackbar.make(view, "Adding measurement failed. Try again: " + ex.getMessage(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                Intent intent = getIntent();
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                finish();
+                startActivity(intent);
             }
         });
 
@@ -115,7 +124,7 @@ public class EditEstimateActivity extends AppCompatActivity {
             }
             long newVal = estimate.calculateEstimateTotal();
             totalPrice = (TextView)findViewById(R.id.estimate_price);
-            totalPrice.setText(Long.toString(newVal));
+            totalPrice.setText("$" + Long.toString(newVal));
 
         }
         catch(Exception ex)
@@ -131,7 +140,7 @@ public class EditEstimateActivity extends AppCompatActivity {
 
     protected MaterialEstimate GetMaterialEstimate(String material, int materialPrice){
             try {
-                for(MaterialEstimate matest : this.estimate.materialEstimates)
+                for(MaterialEstimate matest : this.materialEstimates)
                 {
                     if(matest.getMaterial().getMaterialName().equals(material)){
                         if(matest.getMaterialPrice() != materialPrice)

@@ -43,11 +43,11 @@ public class MaterialEstimateRvAdapter extends RecyclerView.Adapter<MaterialEsti
                 meas.delete();
             }
         }
-
+        String unitOfMeasure = " " + est.getMaterial().getUnitOfMeasure();
         holder.MaterialName.setText(est.getMaterial().getMaterialName());
-        holder.MaterialPrice.setText(Integer.toString((est.getMaterialPrice())) + "$");
-        holder.MaterialTotalPrice.setText(Integer.toString(materialTotalPrice));
-        holder.MaterialTotalMeas.setText(Integer.toString(materialTotalMeas));
+        holder.MaterialPrice.setText("$" + Integer.toString((est.getMaterialPrice())) + unitOfMeasure);
+        holder.MaterialTotalPrice.setText("Total: $"+ Integer.toString(materialTotalPrice));
+        holder.MaterialTotalMeas.setText("Total: " + Integer.toString(materialTotalMeas) + unitOfMeasure);
     }
 
     @Override
