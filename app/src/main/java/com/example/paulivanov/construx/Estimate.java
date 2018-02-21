@@ -58,6 +58,8 @@ public class Estimate extends SugarRecord {
 
     public long calculateEstimateTotal()
     {
+        //reset that shit
+        this.totalPrice = 0;
         List<MaterialEstimate> materialEstimates = MaterialEstimate.find(MaterialEstimate.class,
                 "1=1");
 

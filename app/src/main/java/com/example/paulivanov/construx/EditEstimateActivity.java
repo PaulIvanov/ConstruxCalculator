@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,11 +41,19 @@ public class EditEstimateActivity extends AppCompatActivity {
         estimate = Estimate.findById(Estimate.class, estId);
         estimate.materialEstimates = MaterialEstimate.find(MaterialEstimate.class, "estimate = ?", estimate.toString());
         setContentView(R.layout.activity_edit_estimate);
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+        List<Material> allMaterials = Material.find(Material.class,"1=1");
+        ArrayList<String> materialNames = new ArrayList<String>();
         //set up dropdown material list
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.materials_list, android.R.layout.simple_spinner_dropdown_item);
+        for(Material mat : allMaterials)
+        {
+            materialNames.add(mat.getMaterialName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
+        adapter.addAll(materialNames);
         Spinner materialList = (Spinner) findViewById(R.id.material_spinner);
+
         materialList.setAdapter(adapter);
 
 
@@ -53,7 +62,6 @@ public class EditEstimateActivity extends AppCompatActivity {
         addMeasButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 EditText measHeight = (EditText) findViewById(R.id.meas_height);
                 EditText measWidth = (EditText) findViewById(R.id.meas_width);
                 Spinner spinnerText = (Spinner) findViewById(R.id.material_spinner);
@@ -95,8 +103,14 @@ public class EditEstimateActivity extends AppCompatActivity {
             materialEstimates = new ArrayList<>();
             for(MaterialEstimate est : newMaEstimates)
             {
-                if(est.getEstimate().getId() == estId) {
-                    materialEstimates.add(est);
+                try {
+                    if (est.getEstimate().getId() == estId) {
+                        materialEstimates.add(est);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    est.delete();
                 }
             }
             long newVal = estimate.calculateEstimateTotal();

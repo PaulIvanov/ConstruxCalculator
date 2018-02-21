@@ -39,6 +39,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static android.Manifest.permission.SYSTEM_ALERT_WINDOW;
 
 /**
  * A login screen that offers login via email/password.
@@ -52,6 +53,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private String mEmail;
+    private String mPassword;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +80,47 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
                 attemptLogin();
+                finish();
             }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+//    public void finish()
+//    {
+//        System.out.println("Finish Hit");
+//        Intent intent = new Intent(LoginActivity.this, JobListActivity.class);
+//        startActivity(intent);
+//    }
+//
+//    protected Boolean LoginAction() {
+//        // Attempt to Find the User in localdb
+//        System.out.println("Before DB call");
+//        List<User> possibleUsers = User.find(User.class, "email = ?", mUser.getEmail());
+//        System.out.println("After DB call");
+//
+//        for(User u : possibleUsers)
+//        {
+//            System.out.println("Iterate over list");
+//            if(Objects.equals(u.getEmail(), mUser.getEmail()) &&
+//                    Objects.equals(u.getPassword(), mUser.getPassword()))
+//            {
+//                CURRENT_USER = u;
+//                System.out.println("Found User matching email and creds");
+//                return true;
+//            }
+//        }
+//
+//        //Register the account if it doesnt exist
+//        System.out.println("Creating User");
+//        mUser.save();
+//        CURRENT_USER = mUser;
+//        System.out.println("Created User");
+//        return true;
+//    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -133,10 +170,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
 
-
+            mEmail = email;
+            mPassword = password;
+            mUser = new User(email, password);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-            System.out.println("Worked");
+//            if(LoginAction())
+//            {
+//                System.out.println("Worked");
+//            }
+
         }
     }
 
@@ -299,6 +342,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         public void finish()
         {
+            System.out.println("Finish Hit");
             Intent intent = new Intent(LoginActivity.this, JobListActivity.class);
             startActivity(intent);
         }

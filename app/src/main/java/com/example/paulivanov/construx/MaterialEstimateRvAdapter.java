@@ -31,10 +31,16 @@ public class MaterialEstimateRvAdapter extends RecyclerView.Adapter<MaterialEsti
 
         List<Measurement> measurements = Measurement.find(Measurement.class, "1=1");
         for(Measurement meas : measurements){
+            try{
             if(meas.getMaterialEstimate().getId().equals(est.getId())){
                 int totalMeas = meas.getLength() * meas.getLength();
                 materialTotalPrice +=  totalMeas * est.getMaterialPrice();
                 materialTotalMeas += totalMeas;
+            }
+            }
+            catch(Exception ex)
+            {
+                meas.delete();
             }
         }
 
@@ -68,11 +74,16 @@ public class MaterialEstimateRvAdapter extends RecyclerView.Adapter<MaterialEsti
         MaterialEstimateViewHolder(final View itemView) {
             super(itemView);
             estimateCv = (CardView)itemView.findViewById(R.id.material_estimate_cv);
-            estimateCv.setOnClickListener(new View.OnClickListener() {
+            estimateCv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Click Material Estimate Card", Snackbar.LENGTH_LONG)
+                public boolean onLongClick(View view) {
+                    MaterialEstimate materialEstimate = com.example.paulivanov.construx.MaterialEstimate.findById(MaterialEstimate.class, materialEstId);
+                    boolean result = materialEstimate.delete();
+                    view.refreshDrawableState();
+                    Snackbar.make(view, "Material Estimate Deleted", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
+                    return result;
                 }
             });
             MaterialName = (TextView)itemView.findViewById(R.id.material_est_name);

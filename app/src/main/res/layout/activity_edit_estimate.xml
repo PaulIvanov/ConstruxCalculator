@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.paulivanov.construx.EditEstimateActivity">
+    tools:context="com.example.paulivanov.construx.EditEstimateActivity"
+    android:windowSoftInputMode="adjustNothing">
 
     <TextView
         android:id="@+id/estimate_total"
@@ -41,7 +42,6 @@
         android:layout_marginStart="8dp"
         android:hint="1.00"
         android:inputType="number|numberSigned"
-        android:text="@string/materials"
         android:textAlignment="textEnd"
         android:textAppearance="@android:style/TextAppearance.Material.Medium.Inverse"
         app:layout_constraintBottom_toTopOf="@+id/materialEstimateList"
@@ -58,13 +58,16 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:isScrollContainer="false">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/materialEstRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:animationCache="false">
+            android:animateLayoutChanges="false"
+            android:animationCache="false"
+            android:isScrollContainer="false">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
