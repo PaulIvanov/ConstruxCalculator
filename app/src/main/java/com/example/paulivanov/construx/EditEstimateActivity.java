@@ -56,7 +56,6 @@ public class EditEstimateActivity extends AppCompatActivity {
 
         materialList.setAdapter(adapter);
 
-
         Button addMeasButton = (Button) findViewById(R.id.addMeasButton);
 
         addMeasButton.setOnClickListener(new View.OnClickListener() {

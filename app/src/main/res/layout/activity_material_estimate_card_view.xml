@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:textSize="30sp"
+            android:textAppearance="@android:style/TextAppearance.Holo.Large"
             tools:text="materialName" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_alignBaseline="@+id/material_est_total_price"
             android:layout_alignBottom="@+id/material_est_total_price"
             android:layout_alignParentStart="true"
-            android:textSize="24sp"
+            android:textAppearance="@android:style/TextAppearance.Holo.Medium"
             tools:text="measPrice" />
 
         <TextView
@@ -38,16 +38,16 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/material_total-meas"
             android:layout_marginTop="25dp"
-            android:textSize="24sp"
+            android:textAppearance="@android:style/TextAppearance.Holo.Medium"
             tools:text="totalPrice" />
 
         <TextView
             android:id="@+id/material_total-meas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:textSize="24sp"
+            android:layout_alignBottom="@+id/material_est_name"
+            android:layout_alignEnd="@+id/material_est_total_price"
+            android:textAppearance="@android:style/TextAppearance.Holo.Medium"
             tools:text="measurement" />
 
     </RelativeLayout>
