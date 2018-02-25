@@ -22,7 +22,7 @@
             android:value="construct.db" />
         <meta-data
             android:name="VERSION"
-            android:value="6" />
+            android:value="7" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -67,7 +67,10 @@
         <activity android:name=".EditEstimateActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".AccountSettingsActivity" />
-        <activity android:name=".AddMaterialActivity"></activity>
+        <activity android:name=".AddMaterialActivity" />
+        <activity android:name=".JobNotesListActivity" />
+        <activity android:name=".JobNoteCardViewActivity" />
+        <activity android:name=".AddJobNoteActivity"></activity>
     </application>
 
 </manifest>

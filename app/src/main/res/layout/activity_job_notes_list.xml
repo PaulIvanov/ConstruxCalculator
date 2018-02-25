@@ -6,4 +6,38 @@
     android:layout_height="match_parent"
     tools:context="com.example.paulivanov.construx.JobNotesListActivity">
 
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_note_button"
+        android:layout_width="55dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <LinearLayout
+        android:id="@+id/edit_note_list"
+        android:layout_width="368dp"
+        android:layout_height="499dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/note_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

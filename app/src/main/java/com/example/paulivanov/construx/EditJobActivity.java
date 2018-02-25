@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -24,6 +25,7 @@ public class EditJobActivity extends AppCompatActivity {
     TextView jobAddress;
     TextView startDate;
     TextView jobStatus;
+    Button viewNotesButton;
 
 
     @Override
@@ -38,6 +40,8 @@ public class EditJobActivity extends AppCompatActivity {
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
         startDate = (TextView) findViewById(R.id.editJobStartDate);
         jobStatus = (TextView) findViewById(R.id.editJobStatus);
+        viewNotesButton = (Button) findViewById(R.id.view_notes_button);
+
         jobId = getIntent().getLongExtra("job_id", 0);
         if(jobId == 0)
         {
@@ -65,12 +69,22 @@ public class EditJobActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        viewNotesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Going to Job Notes", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent intent = new Intent(EditJobActivity.this, JobNotesListActivity.class);
+                intent.putExtra("job_id", jobId);
+                finish();
+                startActivity(intent);
+            }
+        });
 
         editJobRv =(RecyclerView)findViewById(R.id.editJobRv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         editJobRv.setLayoutManager(llm);
         editJobRv.setHasFixedSize(true);
-
 
         initializeData();
         initializeAdapter();

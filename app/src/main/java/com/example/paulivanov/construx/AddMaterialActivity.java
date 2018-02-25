@@ -21,7 +21,7 @@ public class AddMaterialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_material);
 
-        Button AddMaterialButton = (Button) findViewById(R.id.addMaterialButton);
+        Button AddMaterialButton = (Button) findViewById(R.id.add_note_submit_button);
         AddMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
