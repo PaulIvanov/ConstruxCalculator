@@ -65,7 +65,10 @@ public class Estimate extends SugarRecord {
 
         for(MaterialEstimate matEst : materialEstimates)
         {
+            if(matEst.getEstimate().getId().equals(this.getId()))
+            {
             this.totalPrice += matEst.CalculateTotalPrice();
+            }
         }
         this.save();
         return this.totalPrice;

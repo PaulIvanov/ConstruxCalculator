@@ -33,7 +33,7 @@ public class MaterialEstimateRvAdapter extends RecyclerView.Adapter<MaterialEsti
         for(Measurement meas : measurements){
             try{
             if(meas.getMaterialEstimate().getId().equals(est.getId())){
-                int totalMeas = meas.getLength() * meas.getLength();
+                int totalMeas = meas.getLength() * meas.getWidth();
                 materialTotalPrice +=  totalMeas * est.getMaterialPrice();
                 materialTotalMeas += totalMeas;
             }

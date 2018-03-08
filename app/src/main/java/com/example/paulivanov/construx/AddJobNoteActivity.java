@@ -1,6 +1,7 @@
 package com.example.paulivanov.construx;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class AddJobNoteActivity extends AppCompatActivity {
     TextView title;
     TextView noteText;
     Button addNoteButton;
+    long noteId;
 
 
     @Override
@@ -32,7 +34,15 @@ public class AddJobNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_job_note);
 
         jobId = getIntent().getLongExtra("job_id", 0);
+        noteId = getIntent().getLongExtra("note_id", 0);
         job = Job.findById(Job.class, jobId);
+        if(noteId != 0){
+            JobNote note = JobNote.findById(JobNote.class, noteId);
+            title = (EditText) findViewById(R.id.note_title_edit);
+            title.setText(note.getTitle());
+            noteText = (EditText) findViewById(R.id.note_desc_edit);
+            noteText.setText(note.getDescription());
+        }
 
         addNoteButton = (Button) findViewById(R.id.add_note_submit_button);
         addNoteButton.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +52,7 @@ public class AddJobNoteActivity extends AppCompatActivity {
                 title = (EditText) findViewById(R.id.note_title_edit);
                 noteText = (EditText) findViewById(R.id.note_desc_edit);
                 try{
-                    JobNote newJobNote = new JobNote();
+                    JobNote newJobNote =  noteId == 0 ? new JobNote() : JobNote.findById(JobNote.class, noteId);
                     newJobNote.setJob(job);
                     newJobNote.setTitle(title.getText().toString());
                     newJobNote.setDescription(noteText.getText().toString());

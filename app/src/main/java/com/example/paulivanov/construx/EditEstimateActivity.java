@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,7 +124,8 @@ public class EditEstimateActivity extends AppCompatActivity {
             }
             long newVal = estimate.calculateEstimateTotal();
             totalPrice = (TextView)findViewById(R.id.estimate_price);
-            totalPrice.setText("$" + Long.toString(newVal));
+            NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+            totalPrice.setText(currencyFormatter.format(newVal));
 
         }
         catch(Exception ex)

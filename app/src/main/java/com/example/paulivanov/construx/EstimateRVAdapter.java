@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 public class EstimateRVAdapter extends RecyclerView.Adapter<EstimateRVAdapter.EstimateViewHolder> {
@@ -73,7 +74,8 @@ public class EstimateRVAdapter extends RecyclerView.Adapter<EstimateRVAdapter.Es
     public void onBindViewHolder(EstimateViewHolder EstimateViewHolder, int i) {
         Estimate est = Estimates.get(i);
         EstimateViewHolder.estimateName.setText(est.getEstimatesName());
-        EstimateViewHolder.estimatePrice.setText(Long.toString((est.getTotalPrice())) + "$");
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+        EstimateViewHolder.estimatePrice.setText(currencyFormatter.format((est.calculateEstimateTotal())));
         EstimateViewHolder.estimateId = est.getId();
         EstimateViewHolder.jobId = est.getJob().getId();
     }
